@@ -27,5 +27,4 @@ INSRTsort_function <- function(A){
 
 
 INSRTsort_function(c(5, 2, 4, 6, 1, 3))
-
-INSRTsort_function
+INSRTsort_function(c('D', 'B', 'T', 'G', 'A', 'R'))
