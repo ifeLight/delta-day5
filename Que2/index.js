@@ -4,15 +4,27 @@ var directory  = "./" + process.argv[2]
 var filelist = [];
 var codeNumbers = 0;
 
+
 try {
-    
+
+      ignoreFolders = fs.readFileSync("./ignore-folder.txt").toString().split("\n");
+
+    function checker (file) {
+        for (var i = 0; i < ignoreFolders.length; i++) {
+            if (ignoreFolders[i].indexOf(file) >= 0)
+            return true;
+            break;
+        }
+        return false;
+    }
+
    // List all files in a directory in Node.js recursively in a synchronous fashion
    // And Filtering The Third party Files with node_modules folder
      var walkSync = function(dir, filelist) {
                 files = fs.readdirSync(dir);
             filelist = filelist || [];
             files.forEach(function(file) {
-                if (fs.statSync(path.join(dir, file)).isDirectory() && (file.indexOf("node_modules") === -1)) {
+                if (fs.statSync(path.join(dir, file)).isDirectory() && !checker(file)) {
                     filelist = walkSync(path.join(dir, file), filelist);
                 }
                 else {
